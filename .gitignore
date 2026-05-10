@@ -1,0 +1,17 @@
+# PDF CV files (personal info, not for public)
+*CV*.pdf
+Curriculum*.pdf
+朱鹏程*.pdf
+CV*.pdf
+
+# Skill files
+anthropics-skills-pdf-1.0.2/
+frontend-design/
+
+# OS files
+Thumbs.db
+Desktop.ini
+
+# IDE files
+.vscode/
+.idea/

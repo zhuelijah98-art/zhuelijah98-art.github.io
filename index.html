@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="朱鹏程 | Pengcheng Zhu — 哈尔滨工业大学电气工程博士研究生。个人学术主页。">
+<title>Pengcheng Zhu 朱鹏程 | Academic Homepage</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Noto+Serif+SC:wght@300;400;500;600;700&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── CSS Variables ── */
+:root {
+  --bg-primary: #0c1929;
+  --bg-secondary: #101d32;
+  --bg-card: #152238;
+  --bg-elevated: #1a2d47;
+  --text-primary: #e8e4dd;
+  --text-secondary: #b8b2a6;
+  --text-muted: #8a847a;
+  --gold: #bfa05a;
+  --gold-light: #d4bc7e;
+  --gold-dim: #8b6f3a;
+  --teal: #4a9696;
+  --teal-dim: #2d5e5e;
+  --border: rgba(191, 160, 90, 0.15);
+  --border-light: rgba(255, 255, 255, 0.06);
+  --shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+  --radius: 6px;
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --max-width: 860px;
+  --font-heading: 'Cormorant Garamond', 'Noto Serif SC', serif;
+  --font-body: 'Noto Serif SC', 'Cormorant Garamond', Georgia, serif;
+  --font-mono: 'DM Mono', 'Courier New', monospace;
+}
+
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 17px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Background texture & ambient glow ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: -1;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(191, 160, 90, 0.04) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 50% at 85% 30%, rgba(74, 150, 150, 0.03) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23bfa05a' fill-opacity='0.015'%3E%3Ccircle cx='30' cy='30' r='1.5'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4 { font-family: var(--font-heading); line-height: 1.25; }
+h1 { font-size: clamp(2.2rem, 5vw, 3rem); font-weight: 600; color: #f0ece4; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.4rem, 3vw, 1.75rem); font-weight: 500; color: var(--gold-light); letter-spacing: 0.04em; margin-bottom: 1.5rem; }
+h3 { font-size: 1.1rem; font-weight: 500; color: var(--text-primary); }
+a { color: var(--gold); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--gold-light); }
+
+/* ── Navigation ── */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(12, 25, 41, 0.85);
+  backdrop-filter: blur(16px) saturate(130%);
+  -webkit-backdrop-filter: blur(16px) saturate(130%);
+  border-bottom: 1px solid var(--border);
+  transition: all var(--transition);
+}
+.nav.scrolled { background: rgba(12, 25, 41, 0.95); box-shadow: 0 1px 20px rgba(0,0,0,0.2); }
+.nav-inner {
+  max-width: var(--max-width); margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0.85rem 1.5rem;
+}
+.nav-links { display: flex; align-items: center; gap: 1.6rem; }
+.nav-links a {
+  font-family: var(--font-heading); font-size: 0.85rem; font-weight: 500;
+  color: var(--text-secondary); letter-spacing: 0.06em; text-transform: uppercase;
+  transition: color var(--transition); position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px;
+  background: var(--gold); transition: width var(--transition);
+}
+.nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+
+.lang-toggle {
+  background: transparent; border: 1px solid var(--gold-dim); color: var(--gold-light);
+  font-family: var(--font-mono); font-size: 0.7rem; font-weight: 500;
+  padding: 0.3rem 0.7rem; border-radius: var(--radius); cursor: pointer;
+  letter-spacing: 0.08em; transition: all var(--transition);
+  text-transform: uppercase;
+}
+.lang-toggle:hover { background: rgba(191, 160, 90, 0.1); border-color: var(--gold); }
+
+.nav-name {
+  font-family: var(--font-heading); font-size: 1.05rem; font-weight: 600;
+  color: var(--text-primary); letter-spacing: 0.02em;
+}
+
+/* ── Mobile menu ── */
+.menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 0.3rem; }
+.menu-btn span { display: block; width: 22px; height: 1.5px; background: var(--gold-light); margin: 5px 0; transition: var(--transition); }
+
+/* ── Layout ── */
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 1.5rem; }
+.section { padding: 5rem 0; position: relative; }
+.section:first-of-type { padding-top: 7rem; }
+
+/* ── Decorative section dividers ── */
+.section-divider {
+  width: 60px; height: 2px; background: linear-gradient(90deg, var(--gold-dim), var(--gold-light), var(--gold-dim));
+  margin: 0 auto 3rem; opacity: 0.6;
+}
+
+/* ── Hero ── */
+.hero { padding-top: 7rem; padding-bottom: 3rem; }
+.hero-grid { display: flex; align-items: center; gap: 3rem; }
+.hero-text { flex: 1; }
+.hero-text .role {
+  font-family: var(--font-heading); font-size: 1.25rem; font-weight: 400;
+  color: var(--gold-light); letter-spacing: 0.05em; margin-top: 0.5rem;
+}
+.hero-text .affiliation {
+  font-size: 0.9rem; color: var(--text-muted); margin-top: 0.8rem; line-height: 1.6;
+}
+.hero-contact { display: flex; flex-wrap: wrap; gap: 1.2rem; margin-top: 1.5rem; }
+.hero-contact a, .hero-contact span {
+  font-size: 0.8rem; color: var(--text-secondary);
+  display: flex; align-items: center; gap: 0.4rem; transition: color var(--transition);
+}
+.hero-contact a:hover { color: var(--gold-light); }
+.hero-contact .icon { font-size: 0.9rem; color: var(--gold-dim); }
+
+.hero-photo {
+  flex-shrink: 0; width: 180px; height: 180px; border-radius: 50%;
+  overflow: hidden; border: 2px solid var(--gold-dim);
+  box-shadow: 0 0 60px rgba(191, 160, 90, 0.1), 0 0 0 8px rgba(191, 160, 90, 0.03);
+  position: relative;
+}
+.hero-photo::after {
+  content: ''; position: absolute; inset: 0; border-radius: 50%;
+  box-shadow: inset 0 0 40px rgba(12, 25, 41, 0.3);
+}
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; }
+
+/* ── Cards ── */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  border-radius: var(--radius); padding: 1.8rem; margin-bottom: 1.2rem;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+.card:hover { border-color: var(--border); box-shadow: var(--shadow); }
+.card-header { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.6rem; }
+.card-period {
+  font-family: var(--font-mono); font-size: 0.7rem; color: var(--teal);
+  letter-spacing: 0.06em; white-space: nowrap;
+}
+.card-subtitle { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.15rem; }
+.card-detail { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem; }
+
+.badge {
+  display: inline-block; font-family: var(--font-mono); font-size: 0.65rem; font-weight: 500;
+  padding: 0.2rem 0.55rem; border-radius: 3px; letter-spacing: 0.06em;
+  margin-right: 0.4rem; margin-bottom: 0.3rem;
+}
+.badge-gold { background: rgba(191, 160, 90, 0.12); color: var(--gold-light); border: 1px solid rgba(191,160,90,0.2); }
+.badge-teal { background: rgba(74, 150, 150, 0.1); color: var(--teal); border: 1px solid rgba(74,150,150,0.15); }
+
+/* ── Publication list ── */
+.pub-item { margin-bottom: 1.4rem; padding-bottom: 1.4rem; border-bottom: 1px solid var(--border-light); }
+.pub-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+.pub-number {
+  font-family: var(--font-mono); font-size: 0.65rem; color: var(--gold-dim);
+  margin-bottom: 0.15rem; letter-spacing: 0.08em;
+}
+.pub-title { font-size: 0.95rem; font-weight: 500; color: var(--text-primary); line-height: 1.5; }
+.pub-authors { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.15rem; }
+.pub-authors .self { color: var(--gold-light); font-weight: 500; }
+.pub-venue { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.15rem; font-style: italic; }
+.pub-meta { margin-top: 0.3rem; display: flex; flex-wrap: wrap; gap: 0.3rem; }
+
+/* ── Skills grid ── */
+.skills-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.skill-tag {
+  font-size: 0.78rem; padding: 0.35rem 0.8rem;
+  background: var(--bg-elevated); border: 1px solid var(--border);
+  border-radius: 20px; color: var(--text-secondary);
+  transition: all var(--transition);
+}
+
+/* ── Two column grid ── */
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+@media (max-width: 640px) { .grid-2 { grid-template-columns: 1fr; } }
+
+/* ── Language visibility ── */
+body [lang] { display: none; }
+:root[data-lang="zh"] [lang="zh"],
+:root[data-lang="en"] [lang="en"] { display: unset; }
+
+/* inline elements need special handling */
+:root[data-lang="zh"] span[lang="zh"],
+:root[data-lang="en"] span[lang="en"] { display: inline; }
+
+/* block elements with lang attribute */
+:root[data-lang="zh"] div[lang="zh"],
+:root[data-lang="en"] div[lang="en"],
+:root[data-lang="zh"] section[lang="zh"],
+:root[data-lang="en"] section[lang="en"],
+:root[data-lang="zh"] p[lang="zh"],
+:root[data-lang="en"] p[lang="en"],
+:root[data-lang="zh"] li[lang="zh"],
+:root[data-lang="en"] li[lang="en"],
+:root[data-lang="zh"] h2[lang="zh"],
+:root[data-lang="en"] h2[lang="en"],
+:root[data-lang="zh"] h3[lang="zh"],
+:root[data-lang="en"] h3[lang="en"] { display: block; }
+
+/* ── Footer ── */
+.footer {
+  text-align: center; padding: 3rem 1.5rem; border-top: 1px solid var(--border);
+  color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.04em;
+}
+
+/* ── Scroll reveal ── */
+.reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* ── Mobile responsive ── */
+@media (max-width: 768px) {
+  html { font-size: 15px; }
+  .hero-grid { flex-direction: column-reverse; text-align: center; gap: 2rem; }
+  .hero-photo { width: 140px; height: 140px; }
+  .hero-contact { justify-content: center; }
+  .nav-links a:not(.lang-toggle) { display: none; }
+  .menu-btn { display: block; }
+  .nav-links.mobile-open { position: absolute; top: 100%; left: 0; right: 0;
+    background: var(--bg-secondary); flex-direction: column; padding: 1.5rem;
+    border-bottom: 1px solid var(--border); gap: 1rem;
+  }
+  .nav-links.mobile-open a { display: block; font-size: 0.9rem; text-align: center; }
+  .card-header { flex-direction: column; }
+  .section { padding: 3.5rem 0; }
+  .hero { padding-top: 5rem; }
+}
+
+/* ── Print ── */
+@media print {
+  body { background: white; color: #222; }
+  .nav { display: none; }
+  .section { padding: 1.5rem 0; }
+}
+
+/* ── Selection ── */
+::selection { background: rgba(191, 160, 90, 0.25); color: #f0ece4; }
+</style>
+</head>
+<body>
+
+<!-- ─── Navigation ─── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <span class="nav-name">P. Zhu</span>
+    <div class="nav-links" id="navLinks">
+      <a href="#about" data-lang-zh="关于" data-lang-en="About">关于</a>
+      <a href="#education" data-lang-zh="教育" data-lang-en="Education">教育</a>
+      <a href="#publications" data-lang-zh="论文" data-lang-en="Publications">论文</a>
+      <a href="#honors" data-lang-zh="荣誉" data-lang-en="Honors">荣誉</a>
+      <a href="#experience" data-lang-zh="项目" data-lang-en="Projects">项目</a>
+      <!-- <a href="#experience" data-lang-zh="项目" data-lang-en="Projects">项目</a>-->
+      <button class="lang-toggle" id="langToggle" aria-label="Toggle language">中</button>
+    </div>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ─── Hero ─── -->
+<header class="hero section" id="home">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="hero-text reveal">
+        <h1>
+          <span lang="zh">朱鹏程</span>
+          <span lang="en">Pengcheng Zhu</span>
+        </h1>
+        <div class="role">
+          <span lang="zh">博士研究生 · 电气工程</span>
+          <span lang="en">Ph.D. Candidate · Electrical Engineering</span>
+        </div>
+        <div class="affiliation">
+          <span lang="zh">
+            哈尔滨工业大学 电气工程及自动化学院<br>
+            特种电机研究中心<br>
+            联合培养：西班牙塞维利亚大学 (IEEE Fellow Sergio Vazquez 团队)
+          </span>
+          <span lang="en">
+            School of Electrical Engineering & Automation<br>
+            Harbin Institute of Technology, China<br>
+            Joint Ph.D.: University of Seville, Spain (Prof. Sergio Vazquez, IEEE Fellow)
+          </span>
+        </div>
+        <div class="hero-contact">
+          <a href="mailto:22b906018@stu.hit.edu.cn">
+            <span class="icon">✉</span> 22b906018@stu.hit.edu.cn
+          </a>
+          <span><span class="icon">📍</span> <span lang="zh">广州 · 哈尔滨 · 塞维利亚</span><span lang="en">Guangzhou · Harbin · Seville</span></span>
+        </div>
+      </div>
+      <div class="hero-photo reveal">
+        <img src="Pengcheng Zhu1.jpg" alt="Pengcheng Zhu 朱鹏程">
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ─── About ─── -->
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2>
+      <span lang="zh">个人简介</span>
+      <span lang="en">About</span>
+    </h2>
+    <div class="card reveal">
+      <p lang="zh" style="font-size:0.92rem; line-height:1.85;">
+        朱鹏程，哈尔滨工业大学电气工程专业博士研究生（2022年入学，预计2027年3月毕业），
+        师从国家高层次人才、特聘教授徐永向老师。2025年9月起于西班牙塞维利亚大学进行联合培养，
+        合作导师为 IEEE Fellow、IEEE Trans. Ind. Electron. 联合主编 Sergio Vazquez 教授。
+        主要研究方向为基于单直流母线电流传感器的永磁同步电机（PMSM）驱动控制与模型预测控制。
+        以第一作者（含导师一作、本人二作）在 IEEE Trans. Ind. Electron.、IEEE JESTPE、
+        IEEE Trans. Instrum. Meas.、中国电机工程学报等高水平期刊发表多篇论文。
+        担任 IEEE Trans. Power Electron.、IEEE Trans. Ind. Electron. 审稿人。获中国国际大学生创新大赛国家银奖（团队负责人）、
+        黑龙江省三好学生、哈工大优秀学生等荣誉。多次深入参与国防及工业现场调试，具备扎实的工程实践能力。
+      </p>
+      <p lang="en" style="font-size:0.92rem; line-height:1.85;">
+        Pengcheng Zhu is a Ph.D. candidate in Electrical Engineering at Harbin Institute of Technology (2022–Present, expected March 2027),
+        under the supervision of Prof. Yongxiang Xu (National High-Level Talent, Distinguished Professor).
+        Since September 2025, he has been a joint Ph.D. student at the University of Seville, Spain,
+        working with Prof. Sergio Vazquez (IEEE Fellow, Co-Editor-in-Chief of IEEE Trans. Ind. Electron.).
+        His research focuses on single DC-link current sensor control and model predictive control for PMSM drives.
+        He has published multiple papers as first author in top-tier journals including IEEE Trans. Ind. Electron.,
+        IEEE JESTPE, IEEE Trans. Instrum. Meas., and Proceedings of the CSEE.
+        He serves as a reviewer for IEEE Trans. Power Electron. and IEEE Trans. Ind. Electron.
+        He has received numerous honors including the National Silver Award at CICSIC 2024 (Team Leader).
+        He has extensive hands-on experience in defense and industrial field commissioning.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Education ─── -->
+<section class="section" id="education">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2>
+      <span lang="zh">教育经历</span>
+      <span lang="en">Education</span>
+    </h2>
+
+    <!-- Ph.D. HIT -->
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">哈尔滨工业大学 · 电气工程 博士</span><span lang="en">Ph.D. in Electrical Engineering, HIT</span></h3>
+        <span class="card-period">2022.09 – <span lang="zh">至今</span><span lang="en">Present</span></span>
+      </div>
+      <div class="card-subtitle">
+        <span lang="zh">导师：徐永向 教授（国家高层次人才、特聘教授）</span>
+        <span lang="en">Supervisor: Prof. Yongxiang Xu (National High-Level Talent, Distinguished Professor)</span>
+      </div>
+      <div class="card-detail">
+        <span lang="zh">研究课题：基于单直流母线电流传感器的永磁同步电机驱动控制策略研究</span>
+        <span lang="en">Research: Single DC-link current sensor control for PMSM drives</span>
+      </div>
+    </div>
+
+    <!-- Joint Ph.D. -->
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">塞维利亚大学 · 电子工程 联合培养博士</span><span lang="en">Joint Ph.D. in Electronics Engineering, University of Seville</span></h3>
+        <span class="card-period">2025.09 – 2026.09</span>
+      </div>
+      <div class="card-subtitle">
+        <span lang="zh">导师：Sergio Vazquez 教授（IEEE Fellow, IEEE TIE 联合主编）</span>
+        <span lang="en">Supervisor: Prof. Sergio Vazquez (IEEE Fellow, Co-Editor-in-Chief of IEEE TIE)</span>
+      </div>
+      <div class="card-detail">
+        <span lang="zh">研究课题：基于单直流母线电流传感器的永磁同步电机模型预测控制研究</span>
+        <span lang="en">Research: Model predictive control for PMSM drives using a single DC-link current sensor</span>
+      </div>
+    </div>
+
+    <!-- Master -->
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">哈尔滨工业大学 · 电气工程 硕士</span><span lang="en">M.Eng. in Electrical Engineering, HIT</span></h3>
+        <span class="card-period">2020.09 – 2022.06</span>
+      </div>
+      <div class="card-detail">
+        <span lang="zh">研究课题：旋转变压器全数字解码转子位置检测研究</span>
+        <span lang="en">Research: Full-digital resolver-to-digital conversion for rotor position detection</span>
+      </div>
+    </div>
+
+    <!-- Bachelor -->
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">广东工业大学 · 电气工程及其自动化 学士</span><span lang="en">B.Eng. in Electrical Engineering & Automation, GDUT</span></h3>
+        <span class="card-period">2016.08 – 2020.06</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Research Interests ─── -->
+<section class="section" id="research" style="padding-top: 1rem;">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2>
+      <span lang="zh">研究方向</span>
+      <span lang="en">Research Interests</span>
+    </h2>
+    <div class="reveal" style="display:flex;flex-wrap:wrap;gap:0.6rem;">
+      <span class="skill-tag"><span lang="zh">PMSM 驱动控制</span><span lang="en">PMSM Drive Control</span></span>
+      <span class="skill-tag"><span lang="zh">单电流传感器控制</span><span lang="en">Single Current Sensor Control</span></span>
+      <span class="skill-tag"><span lang="zh">模型预测控制</span><span lang="en">Model Predictive Control</span></span>
+      <span class="skill-tag"><span lang="zh">无位置传感器控制</span><span lang="en">Sensorless Control</span></span>
+      <span class="skill-tag"><span lang="zh">状态观测器</span><span lang="en">State Observer Design</span></span>
+      <span class="skill-tag"><span lang="zh">电力电子变换器</span><span lang="en">Power Electronics Converters</span></span>
+      <span class="skill-tag"><span lang="zh">旋转变压器数字解码</span><span lang="en">Resolver-to-Digital Conversion</span></span>
+      <span class="skill-tag"><span lang="zh">电机驱动系统设计</span><span lang="en">Motor Drive System Design</span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Publications ─── -->
+<section class="section" id="publications">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2>
+      <span lang="zh">学术论文</span>
+      <span lang="en">Publications</span>
+    </h2>
+
+    <!-- Pub 1 -->
+    <div class="pub-item reveal">
+      <div class="pub-number">[1] <span lang="zh">期刊论文</span><span lang="en">Journal Article</span> · SCI Q1 · IF 7.2</div>
+      <div class="pub-title">Improved Resonant ESO-Based Sampling Delay Error Suppression Method for PMSM Drives Using a Single DC-Link Current Sensor</div>
+      <div class="pub-authors"><span class="self">P. Zhu</span>, J. Zou, W. Zhang, Y. Xu, et al.</div>
+      <div class="pub-venue">IEEE Transactions on Industrial Electronics, early access, 2026</div>
+      <div class="pub-meta"><span class="badge badge-gold">Top 期刊</span><span class="badge badge-teal">SCI Q1</span></div>
+    </div>
+
+    <!-- Pub 2 -->
+    <div class="pub-item reveal">
+      <div class="pub-number">[2] <span lang="zh">期刊论文</span><span lang="en">Journal Article</span> · SCI Q1 · IF 4.9</div>
+      <div class="pub-title">Robust Current Observer Design for PMSM Drives Using a Single DC-Link Current Sensor</div>
+      <div class="pub-authors"><span class="self">P. Zhu</span>, Y. Xu, Y. Zhai, J. Zou, et al.</div>
+      <div class="pub-venue">IEEE Journal of Emerging and Selected Topics in Power Electronics, vol. 14, no. 1, pp. 517–529, Feb. 2026</div>
+      <div class="pub-meta"><span class="badge badge-gold">Top 期刊</span><span class="badge badge-teal">SCI Q1</span></div>
+    </div>
+
+    <!-- Pub 3 -->
+    <div class="pub-item reveal">
+      <div class="pub-number">[3] <span lang="zh">期刊论文</span><span lang="en">Journal Article</span> · SCI Q1 · IF 5.9</div>
+      <div class="pub-title">Software-Based Resolver-to-Digital Converter Using an α-β-δ Filter</div>
+      <div class="pub-authors">J. Zou, <span class="self">P. Zhu*</span>, W. Zhang, et al.  <span style="font-size:0.7rem;color:var(--gold-dim);">(*corresponding author)</span></div>
+      <div class="pub-venue">IEEE Transactions on Instrumentation and Measurement, vol. 73, pp. 1–11, 2024, Art no. 7502211</div>
+      <div class="pub-meta"><span class="badge badge-gold">Top 期刊</span><span class="badge badge-teal">SCI Q1</span></div>
+    </div>
+
+    <!-- Pub 4 -->
+    <div class="pub-item reveal">
+      <div class="pub-number">[4] <span lang="zh">期刊论文</span><span lang="en">Journal Article</span> · <span lang="zh">学科顶级期刊</span><span lang="en">Top Chinese Journal</span></div>
+      <div class="pub-title">
+        <span lang="zh">基于高频信号注入法的单电流传感器低速永磁同步电机无位置传感器控制策略</span>
+        <span lang="en">A Single-Current-Sensing Sensorless Control Strategy for Low-Speed PMSM Based on High-Frequency Signal Injection</span>
+      </div>
+      <div class="pub-authors"><span class="self">P. Zhu</span>, J. Zou, W. Zhang, Y. Xu, et al.</div>
+      <div class="pub-venue"><span lang="zh">中国电机工程学报 (Proceedings of the CSEE), 2026</span><span lang="en">Proceedings of the CSEE, 2026</span></div>
+      <div class="pub-meta"><span class="badge badge-gold"><span lang="zh">学科顶级期刊</span><span lang="en">Top Journal</span></span></div>
+    </div>
+
+    <!-- Pub 5 -->
+    <div class="pub-item reveal">
+      <div class="pub-number">[5] <span lang="zh">期刊论文</span><span lang="en">Journal Article</span> · SCI · IF 3.2</div>
+      <div class="pub-title">Phase Current Reconstruction of PMSG-Based Three-Phase PWM Rectifiers Using Linear Extended State Observer</div>
+      <div class="pub-authors"><span class="self">P. Zhu</span>, J. Zou, Y. Xu, et al.</div>
+      <div class="pub-venue">Energies, 2026</div>
+      <div class="pub-meta"><span class="badge badge-teal">SCI</span></div>
+    </div>
+
+    <!-- Pub 6 -->
+    <div class="pub-item reveal">
+      <div class="pub-number">[6] <span lang="zh">会议论文</span><span lang="en">Conference Paper</span> · EI</div>
+      <div class="pub-title">A Current Observer for Interior Permanent-Magnet Synchronous Motor with Single DC-Link Current Sensor</div>
+      <div class="pub-authors"><span class="self">P. Zhu</span>, J. Zou, Y. Xu, et al.</div>
+      <div class="pub-venue">27th International Conference on Electrical Machines and Systems (ICEMS 2024), Fukuoka, Japan, 2024</div>
+      <div class="pub-meta"><span class="badge badge-teal">EI 收录</span></div>
+    </div>
+
+    <!-- Pub 7 -->
+    <div class="pub-item reveal">
+      <div class="pub-number">[7] <span lang="zh">会议论文</span><span lang="en">Conference Paper</span> · EI</div>
+      <div class="pub-title">A Resolver-to-Digital Conversion System Based on Second Order Butterworth Low Pass Filter</div>
+      <div class="pub-authors"><span class="self">P. Zhu</span>, et al.</div>
+      <div class="pub-venue">4th International Symposium on Power Electronics and Control Engineering (ISPECE 2021), Nanchang, China, 2021</div>
+      <div class="pub-meta"><span class="badge badge-teal">EI 收录</span></div>
+    </div>
+
+    <!-- Pub 8 -->
+    <div class="pub-item reveal">
+      <div class="pub-number">[8] <span lang="zh">期刊论文</span><span lang="en">Journal Article</span></div>
+      <div class="pub-title">
+        <span lang="zh">基于直轴电压分析的永磁同步电机逆变器死区补偿策略</span>
+        <span lang="en">Dead Zone Compensation Strategy for Inverter of PMSM Based on Direct Axis Voltage Analysis</span>
+      </div>
+      <div class="pub-authors">J. Yu, <span class="self">P. Zhu</span>, Y. Xu</div>
+      <div class="pub-venue"><span lang="zh">电工技术学报, vol. 16, no. 4, pp. 51–58, 2021</span><span lang="en">Journal of Electrical Engineering, vol. 16, no. 4, pp. 51–58, 2021</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Patents ─── -->
+<section class="section" id="patents">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2>
+      <span lang="zh">发明专利</span>
+      <span lang="en">Patents</span>
+    </h2>
+
+    <div class="pub-item reveal">
+      <div class="pub-number">[P1] <span lang="zh">已授权 · 2022-12-23</span><span lang="en">Granted · Dec 2022</span></div>
+      <div class="pub-title">
+        <span lang="zh">一种旋转变压器全数字解码系统高精度转子位置获取方法</span>
+        <span lang="en">A High-Precision Rotor Position Acquisition Method for Full-Digital Resolver-to-Digital Conversion System</span>
+      </div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-number">[P2] <span lang="zh">已申请 · 2025-12-29</span><span lang="en">Filed · Dec 2025</span></div>
+      <div class="pub-title">
+        <span lang="zh">多电飞机用PMSG三相PWM整流器相电流重构方法及设备</span>
+        <span lang="en">Phase Current Reconstruction Method and Device for PMSG with Three-Phase PWM Rectifier in More-Electric Aircraft</span>
+      </div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-number">[P3] <span lang="zh">已申请 · 2023-08-15</span><span lang="en">Filed · Aug 2023</span></div>
+      <div class="pub-title">
+        <span lang="zh">基于直流母线采样的IPMSM龙伯格电流观测器方法</span>
+        <span lang="en">Luenberger Current Observer Algorithm for IPMSM Based on DC-Link Sampling</span>
+      </div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-number">[P4] <span lang="zh">已申请 · 2025-06-24</span><span lang="en">Filed · Jun 2025</span></div>
+      <div class="pub-title">
+        <span lang="zh">基于单直流母线电流传感器的永磁同步电机驱动系统鲁棒电流观测器及其设计方法</span>
+        <span lang="en">Robust Current Observer and Design Method for PMSM Drive Systems Using a Single DC-Link Current Sensor</span>
+      </div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-number">[P5] <span lang="zh">已申请 · 2025-08-29</span><span lang="en">Filed · Aug 2025</span></div>
+      <div class="pub-title">
+        <span lang="zh">低速无位置传感器相电流重构方法及基于电流包络的转子位置确定</span>
+        <span lang="en">Low-Speed Sensorless Phase Current Reconstruction Method and Rotor Position Determination from Current Envelope</span>
+      </div>
+    </div>
+
+    <div class="pub-item reveal">
+      <div class="pub-number">[P6] <span lang="zh">已申请 · 2025-10-15</span><span lang="en">Filed · Oct 2025</span></div>
+      <div class="pub-title">
+        <span lang="zh">单电流传感器PMSM采样延迟误差抑制方法、抑制评估方法及电流控制系统</span>
+        <span lang="en">Sampling Delay Error Suppression Method, Suppression Evaluation Method, and Current Control System for Single-Current-Sensor PMSM</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Academic Service ─── -->
+<section class="section" id="academic-service" style="padding-bottom: 1rem;">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2>
+      <span lang="zh">学术兼职</span>
+      <span lang="en">Part-time Academic Appointments</span>
+    </h2>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">IEEE Trans. Power Electron. 审稿人</span><span lang="en">Reviewer, IEEE Transactions on Power Electronics</span></h3>
+        <span class="card-period">2026.04</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">IEEE Trans. Ind. Electron. 审稿人</span><span lang="en">Reviewer, IEEE Transactions on Industrial Electronics</span></h3>
+        <span class="card-period">2025.02</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Honors & Awards ─── -->
+<section class="section" id="honors">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2>
+      <span lang="zh">荣誉与获奖</span>
+      <span lang="en">Honors &amp; Awards</span>
+    </h2>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">黑龙江省普通高等学校"三好学生"</span><span lang="en">Heilongjiang Province "Three-Good Student" Award</span></h3>
+        <span class="card-period">2025.11</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">哈尔滨工业大学优秀学生 (2024–2025)</span><span lang="en">HIT Outstanding Student (2024–2025)</span></h3>
+        <span class="card-period">2025.10</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">国家留学基金委 (CSC) 公派留学奖学金</span><span lang="en">CSC Visiting Scholarship for Joint Ph.D.</span></h3>
+        <span class="card-period">2025.05</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">中国国际大学生创新大赛 (2024) — 国家银奖（团队负责人）</span><span lang="en">National Silver Award — CICSIC 2024 (Team Leader)</span></h3>
+        <span class="card-period">2024.10</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">中国国际大学生创新大赛 (2024) — 黑龙江省金奖（团队负责人）</span><span lang="en">Provincial Gold Award — CICSIC 2024, Heilongjiang (Team Leader)</span></h3>
+        <span class="card-period">2024.08</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">中国国际大学生创新大赛 (2024) — 哈工大校级金奖</span><span lang="en">University Gold Award — CICSIC 2024, HIT</span></h3>
+        <span class="card-period">2024.07</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">哈尔滨工业大学十佳研究生团队（核心成员）</span><span lang="en">HIT Top 10 Graduate Student Team (Core Member)</span></h3>
+        <span class="card-period">2023.11</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">金力永磁奖学金</span><span lang="en">JL MAG Rare-Earth Co., Ltd. Corporate Scholarship</span></h3>
+        <span class="card-period">2021.12</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">哈工大硕士研究生学业一等奖学金</span><span lang="en">HIT Master's First-Class Academic Scholarship</span></h3>
+        <span class="card-period">2021.09</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">广东工业大学自动化学院创新创业大赛一等奖</span><span lang="en">1st Prize — GDUT Automation College Innovation Contest</span></h3>
+        <span class="card-period">2019.04</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Work Experience ─── -->
+<section class="section" id="experience">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2>
+      <span lang="zh">项目经历</span>
+      <span lang="en">Research Projects</span>
+    </h2>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">大功率短时大力矩电机控制 — 中国船舶集团 (CSSC)</span><span lang="en">High-Power Short-Duty Motor Development — CSSC</span></h3>
+        <span class="card-period">2024.05 – <span lang="zh">至今</span><span lang="en">Present</span></span>
+      </div>
+      <div class="card-detail">
+        <span lang="zh">水下航行体电机驱动控制。深入参与，突破短时大力矩电机快速响应控制算法，解决高转矩变负载工况下电机响应慢的难题，支撑关键性能指标满足技术要求。</span>
+        <span lang="en">Underwater vehicle motor drive development. Deeply involved; achieved breakthroughs in high-torque fast-response control algorithms for short-duty motors, solving slow motor response under high-torque variable-load conditions.</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">近空间飞行器电推进系统 — 中国兵器工业集团 (NORINCO)</span><span lang="en">Near-Space Vehicle Electric Propulsion — NORINCO</span></h3>
+        <span class="card-period">2023.09 – <span lang="zh">至今</span><span lang="en">Present</span></span>
+      </div>
+      <div class="card-detail">
+        <span lang="zh">负责PMSM磁场定向控制算法、CAN/SCI通信协议、旋变位置获取、DSP+FPGA协同控制算法，以及电机驱动器和热管理系统硬件设计调试。累计赴北京、西安、榆林等地现场调试10余次，助力近空间飞行器成功完成18000米高空长航时飞行测试。</span>
+        <span lang="en">Responsible for PMSM FOC algorithms, CAN/SCI communication, resolver position acquisition, DSP+FPGA co-processing control, and hardware design of motor drivers and thermal management systems. Conducted 10+ on-site debugging trips; contributed to successful 18,000 m altitude long-endurance flight testing.</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">国家自然科学基金 — 基于电磁旋转差动啮合的定子永磁低速大转矩电机</span><span lang="en">NSFC — Stator PM Low-Speed High-Torque Motor Based on Electromagnetic Rotation and Differential Meshing</span></h3>
+        <span class="card-period">2022.01 – 2025.12</span>
+      </div>
+      <div class="card-detail">
+        <span lang="zh">负责电机驱动系统设计与控制算法开发。</span>
+        <span lang="en">Responsible for motor drive system design and control algorithm development.</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">极端环境高温电机驱动系统 — 中海油服 (COSL)</span><span lang="en">Extreme-Environment High-Temperature Motor Drive — COSL</span></h3>
+        <span class="card-period">2021.03 – 2022.08</span>
+      </div>
+      <div class="card-detail">
+        <span lang="zh">负责无刷直流电机无位置传感器控制策略设计、高温电源硬件设计、旋转变压器全数字解码、无刷直流电机控制、RS485通信等算法设计。多次赴河北廊坊进行现场调试。</span>
+        <span lang="en">Responsible for sensorless BLDC control strategy, high-temp power supply hardware, full-digital resolver-to-digital converter, BLDC motor control, and RS485 communication algorithm design. Multiple on-site debugging trips to Langfang, Hebei.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Leadership & Service ─── -->
+<section class="section" id="service">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2>
+      <span lang="zh">学生工作与服务</span>
+      <span lang="en">Leadership &amp; Service</span>
+    </h2>
+
+    <div class="grid-2">
+      <div class="card reveal">
+        <div class="card-header">
+          <h3 style="font-size:0.95rem;"><span lang="zh">哈工大特种电机研究中心 学生主席</span><span lang="en">Student Chair, HIT Special Motor Research Center</span></h3>
+          <span class="card-period">2023.03 – 2024.09</span>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-header">
+          <h3 style="font-size:0.95rem;"><span lang="zh">广东工业大学 2016级电气6班 班长</span><span lang="en">Class Monitor, 2016 Electrical Class 6, GDUT</span></h3>
+          <span class="card-period">2017.08 – 2018.06</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Skills ─── -->
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2>
+      <span lang="zh">专业技能与语言</span>
+      <span lang="en">Skills &amp; Languages</span>
+    </h2>
+
+    <div class="card reveal" style="margin-bottom:2rem;">
+      <h3 style="margin-bottom:0.8rem;"><span lang="zh">工程技术</span><span lang="en">Engineering & Technical</span></h3>
+      <div class="skills-grid">
+        <span class="skill-tag">MATLAB / Simulink</span>
+        <span class="skill-tag">Multisim</span>
+        <span class="skill-tag">CCS (DSP Control)</span>
+        <span class="skill-tag">Altium Designer (PCB)</span>
+        <span class="skill-tag">DSP+FPGA</span>
+        <span class="skill-tag">CAN / SCI / RS485</span>
+        <span class="skill-tag"><span lang="zh">电机驱动设计</span><span lang="en">Motor Drive Design</span></span>
+        <span class="skill-tag"><span lang="zh">硬件调试</span><span lang="en">Hardware Debugging</span></span>
+      </div>
+    </div>
+
+    <div class="card reveal" style="margin-bottom:2rem;">
+      <h3 style="margin-bottom:0.8rem;"><span lang="zh">软件与工具</span><span lang="en">Software & Tools</span></h3>
+      <div class="skills-grid">
+        <span class="skill-tag">LaTeX</span>
+        <span class="skill-tag">Word / Excel / PPT</span>
+        <span class="skill-tag">Photoshop</span>
+        <span class="skill-tag">Origin</span>
+        <span class="skill-tag">Visio</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <h3 style="margin-bottom:0.8rem;"><span lang="zh">语言 & 证书</span><span lang="en">Languages & Certificates</span></h3>
+      <div class="skills-grid">
+        <span class="skill-tag"><span lang="zh">雅思 6.5</span><span lang="en">IELTS 6.5</span></span>
+        <span class="skill-tag"><span lang="zh">英语六级 493</span><span lang="en">CET-6 493</span></span>
+        <span class="skill-tag"><span lang="zh">全国计算机等级考试（C语言）</span><span lang="en">NCRE (C Language)</span></span>
+        <span class="skill-tag"><span lang="zh">中文母语</span><span lang="en">Chinese (Native)</span></span>
+        <span class="skill-tag"><span lang="zh">粤语</span><span lang="en">Cantonese</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Internships ─── -->
+<section class="section" id="internships" style="padding-top: 1rem;">
+  <div class="container">
+    <div class="section-divider"></div>
+    <h2>
+      <span lang="zh">实习与实践</span>
+      <span lang="en">Practical Experience</span>
+    </h2>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">中国广核集团 · 深圳大亚湾核电站 实习</span><span lang="en">CGN · Daya Bay Nuclear Power Plant (Shenzhen) Internship</span></h3>
+        <span class="card-period">2019.06</span>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-header">
+        <h3><span lang="zh">德国亚琛工业大学 (RWTH Aachen) · 人工智能访学项目</span><span lang="en">RWTH Aachen University · Artificial Intelligence Visiting Program (Germany)</span></h3>
+        <span class="card-period">2019.02</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Footer ─── -->
+<footer class="footer">
+  <div class="container">
+    <p style="margin-bottom:0.4rem;font-family:var(--font-heading);font-size:1rem;color:var(--text-secondary);">
+      Pengcheng Zhu &nbsp;·&nbsp; 朱鹏程
+    </p>
+    <p><span lang="zh">哈尔滨工业大学 · 电气工程及自动化学院</span><span lang="en">Harbin Institute of Technology · School of Electrical Engineering &amp; Automation</span></p>
+    <p style="margin-top:1rem;font-size:0.7rem;color:var(--text-muted);">
+      &copy; 2026 Pengcheng Zhu. <span lang="zh">保留所有权利。</span><span lang="en">All rights reserved.</span>
+    </p>
+  </div>
+</footer>
+
+<!-- ─── Scripts ─── -->
+<script>
+(function() {
+  const root = document.documentElement;
+  let currentLang = 'zh';
+  root.setAttribute('data-lang', currentLang);
+
+  // ── Language Toggle ──
+  const langBtn = document.getElementById('langToggle');
+  langBtn.addEventListener('click', function() {
+    currentLang = currentLang === 'zh' ? 'en' : 'zh';
+    root.setAttribute('data-lang', currentLang);
+    langBtn.textContent = currentLang === 'zh' ? '中' : 'EN';
+    document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+    updateNavLabels();
+  });
+
+  function updateNavLabels() {
+    document.querySelectorAll('#navLinks a[data-lang-zh]').forEach(function(a) {
+      a.textContent = a.getAttribute('data-lang-' + currentLang);
+    });
+  }
+  updateNavLabels();
+
+  // ── Scroll: Nav shadow + active section ──
+  const nav = document.getElementById('nav');
+  const sections = document.querySelectorAll('section, header');
+  const navLinks = document.querySelectorAll('#navLinks a[href^="#"]');
+
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 40) { nav.classList.add('scrolled'); }
+    else { nav.classList.remove('scrolled'); }
+
+    let current = '';
+    sections.forEach(function(sec) {
+      if (window.scrollY >= sec.offsetTop - 120) {
+        current = sec.getAttribute('id');
+      }
+    });
+    navLinks.forEach(function(link) {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === '#' + current) { link.classList.add('active'); }
+    });
+  });
+
+  // ── Smooth scroll for nav links ──
+  navLinks.forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      e.preventDefault();
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth' });
+        // Close mobile menu
+        document.getElementById('navLinks').classList.remove('mobile-open');
+      }
+    });
+  });
+
+  // ── Mobile menu toggle ──
+  document.getElementById('menuBtn').addEventListener('click', function() {
+    document.getElementById('navLinks').classList.toggle('mobile-open');
+  });
+
+  // ── Scroll Reveal ──
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+  // Reveal elements already in view on load
+  setTimeout(function() {
+    document.querySelectorAll('.reveal').forEach(function(el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < window.innerHeight) { el.classList.add('visible'); }
+    });
+  }, 100);
+
+})();
+</script>
+
+</body>
+</html>
